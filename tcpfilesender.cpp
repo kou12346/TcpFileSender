@@ -8,7 +8,12 @@ TcpFileSender::TcpFileSender(QWidget *parent)
     bytesWritten = 0;
     bytesToWrite = 0;
     clientProgressBar = new QProgressBar;
+
     clientStatusLabel = new QLabel(QStringLiteral("客戶端就緒"));
+    ipLabel = new QLabel(QStringLiteral("IP:"));
+    portLabel = new QLabel(QStringLiteral("PORT:"));
+    ipLineEdit = new QLineEdit;
+    portLineEdit = new QLineEdit;
     startButton = new QPushButton(QStringLiteral("開始"));
     quitButton = new QPushButton(QStringLiteral("退出"));
     openButton = new QPushButton(QStringLiteral("開檔"));
@@ -21,11 +26,15 @@ TcpFileSender::TcpFileSender(QWidget *parent)
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(clientProgressBar);
     mainLayout->addWidget(clientStatusLabel);
+    mainLayout->addWidget(ipLabel);
+    mainLayout->addWidget(ipLineEdit);
+    mainLayout->addWidget(portLabel);
+    mainLayout->addWidget(portLineEdit);
     mainLayout->addStretch(1);
     mainLayout->addSpacing(10);
     mainLayout->addWidget(buttonBox);
     setLayout(mainLayout);
-    setWindowTitle(QStringLiteral("檔案傳送"));
+    setWindowTitle(QStringLiteral("(版本控制git管理)檔案傳送"));
     connect(openButton,SIGNAL(clicked()), this, SLOT(openFile()));
     connect(startButton, SIGNAL(clicked()), this, SLOT(start()));
     connect(&tcpClient, SIGNAL(connected()), this, SLOT(startTransfer()));
